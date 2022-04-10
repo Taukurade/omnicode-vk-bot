@@ -1,0 +1,2 @@
+https://github.com/vkbottle/vkbottle/archive/master.zip
+peewee
