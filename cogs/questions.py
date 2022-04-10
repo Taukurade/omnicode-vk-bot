@@ -7,20 +7,11 @@ bp = BotLabeler()
 
 @bp.message(FuncRule(lambda msg: 'опрос' == msg.text.lower()))
 async def q(message: Message):
-  
-    await message.answer("Что-ж, начнем!\n Кнопка зеленая?", keyboard=questions()[0])
-@bp.message(payload_map=[(int)])
-async def like(msg: Message):
-    i=int(msg.get_payload_json())
-    v=[
-        '',
-        'Кнопка красная?',
-        'Кнопка синяя?',
-        'Кнопка серая?',
-        'Где находится питер?',
-        'Вы поставите мне звездочку на гитхабе?',
-        'Здесь несколько кнопок?',
-        'Здесь несколько разных кнопок?',
-        'Спасибо за прохождение опроса!'
-    ]
-    await msg.answer(v[i], keyboard=questions()[i].get_json())
+    d=questions()
+    await message.answer(d[0][0], keyboard=d[1][0])
+@bp.message(payload_map=[('q',int)])
+async def asking(msg: Message):
+    i=int(msg.get_payload_json()['q'])
+    d=questions()
+    
+    await msg.answer(d[0][i], keyboard=d[1][i].get_json())
