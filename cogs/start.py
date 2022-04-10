@@ -5,7 +5,7 @@ from .keyboards import *
 bp = BotLabeler()
 
 
-@bp.message(FuncRule(lambda msg: 'привет' == msg.text.lower()))
+@bp.message(FuncRule(lambda msg: msg.text.lower() in ['привет','начать']))
 @bp.message(payload={'command': 'start'})
 async def hi(message: Message):
     key = Keyboard(one_time=True)
