@@ -17,6 +17,7 @@ def questions():
         Keyboard(one_time=True),
         Keyboard(one_time=True),
         Keyboard(one_time=True),
+        Keyboard(one_time=True),
         Keyboard(one_time=True)
     ]
     #кнопка зеленая?
@@ -31,6 +32,8 @@ def questions():
     d[4].add(Location({5}))
     #вы поставите мне звездочку на гитхабе?
     d[5].add(OpenLink('https://github.com/Taukurade/omnicode-vk-bot','Поставить',{6}))
+    d[5].add(Text('Уже стоит',{6}),KeyboardButtonColor.POSITIVE)
+    d[5].add(Text('Нет',{6}),KeyboardButtonColor.NEGATIVE)
     #здеь несколько кнопок?
     d[6].add(Text('Да',{7}), KeyboardButtonColor.SECONDARY)
     d[6].add(Text('Да',{7}), KeyboardButtonColor.SECONDARY)
@@ -39,4 +42,9 @@ def questions():
     d[7].add(Text('Да',{8}), KeyboardButtonColor.PRIMARY)
     d[7].add(Text('Ага',{8}), KeyboardButtonColor.SECONDARY)
     d[7].add(Text('Нет(Да)',{8}), KeyboardButtonColor.NEGATIVE)
+    #Спасибо за прохождение опроса!
+    d[8].add(Text('Опрос'), KeyboardButtonColor.PRIMARY)
+    d[8].row()
+    d[8].add(Text('Мемы'), KeyboardButtonColor.SECONDARY)
+    d[8].add(Text('Статистика'), KeyboardButtonColor.SECONDARY)
     return d
