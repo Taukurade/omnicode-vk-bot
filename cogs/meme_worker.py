@@ -11,6 +11,7 @@ api = API(token="81ef2d80a38bf6207b1d8eb22eb0ebac78350c6dd20760b82123aaaf53bd4eb
 p_upl = PhotoMessageUploader(api)
 memes=[]
 @bp.message(FuncRule(lambda msg: msg.text.lower() == 'мемы'))
+@bp.message(payload_map=[('meme','new')])
 async def meme_send(message: Message):
     Methods.put_memes_in_db()
     mm=get_meme(message.from_id,)
@@ -21,9 +22,11 @@ async def meme_send(message: Message):
         key = Keyboard(one_time=True)
         key.add(Text('👍',{'like':mm}),KeyboardButtonColor.POSITIVE)
         key.add(Text('👎',{'dislike':mm}),KeyboardButtonColor.NEGATIVE)
-        await message.answer("загружаю мем...")
+        key.row()
+        key.add(Text('Другой мем',{'meme':'new'}),KeyboardButtonColor.PRIMARY)
+        x=await message.answer("загружаю мем...")
         await message.answer("Держи :3",attachment=await p_upl.upload(dir), keyboard=key.get_json())
-
+        await api.messages.delete(x.message_id)
 
 @bp.message(FuncRule(lambda msg: msg.text.lower() == 'статистика'))
 async def stat(message: Message):
