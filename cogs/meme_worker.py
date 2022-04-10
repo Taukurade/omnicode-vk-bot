@@ -21,7 +21,7 @@ async def meme_send(message: Message):
         key = Keyboard(one_time=True)
         key.add(Text('👍',{'like':mm}),KeyboardButtonColor.POSITIVE)
         key.add(Text('👎',{'dislike':mm}),KeyboardButtonColor.NEGATIVE)
-    
+        await message.answer("загружаю мем...")
         await message.answer("Держи :3",attachment=await p_upl.upload(dir), keyboard=key.get_json())
 
 
