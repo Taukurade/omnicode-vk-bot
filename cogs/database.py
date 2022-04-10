@@ -13,7 +13,7 @@ class Meme(Model):
 
 class User(Model):
     user_id = IntegerField()
-    meme = IntegerField(unique=True)
+    meme = IntegerField()
     status = IntegerField(default=0)
 db.create_tables([Meme, User])
 class Methods:
@@ -24,6 +24,7 @@ class Methods:
         1 - лайк
         2 - дизлайк
         """
+        print(user_id,meme,ldsl)
         query=User.select().where(User.user_id==user_id and User.meme==meme)
         if query.exists():
             query.like = ldsl
@@ -39,12 +40,12 @@ class Methods:
             else:
                 Meme.create(dir=meme) 
     def calc_statistic(user_id):
-        
+        user_id=int(user_id)
         total_likes = len(User.select().where(User.status == 1))
         total_dislikes = len(User.select().where(User.status == 2))
         
-        user_likes = len(User.select().where(User.user_id==user_id and User.status == 1))
-        user_dislikes = len(User.select().where(User.user_id==user_id and User.status == 2))
+        user_likes = len(User.select().where(User.user_id == user_id & User.status == 1))
+        user_dislikes = len(User.select().where(User.user_id == user_id & User.status == 2))
         return {'total_l':total_likes,'total_d':total_dislikes,'user_l':user_likes,'user_d':user_dislikes}
     def get_memes():
         

@@ -33,7 +33,14 @@ async def meme_send(msg: Message):
 
 @bp.message(FuncRule(lambda msg: msg.text.lower() == 'статистика'))
 async def stat(msg: Message):
-    await msg.answer("статистика",attachment='',)
+    statistics=Methods.calc_statistic(msg.from_id)
+    m=f"""
+Всего лайков среди пользователей: {statistics['total_l']}
+Всего дизлайков среди пользователей: {statistics['total_d']}
+Всего ваших лайков: {statistics['user_l']}
+Всего ваших дизлайков: {statistics['user_d']}
+    """
+    await msg.answer(f"статистика\n{m}")
 
 @bp.message(payload_map=[('like', int)])
 async def like(msg: Message):
@@ -48,7 +55,7 @@ async def like(msg: Message):
 @bp.message(AttachmentTypeRule('photo'))
 async def upload_meme(msg: Message):
     r = requests.get(msg.attachments[0].photo.sizes[-1].url,allow_redirects=True)
-    open(f"{msg.from_id}_{dt.timestamp(dt.now())}.jpg",'wb').write(r.content)
+    open(f"memes/{msg.from_id}_{dt.timestamp(dt.now())}.jpg",'wb').write(r.content)
     await msg.answer('Новый мем в нашей коллекции! Спасибо! :3', keyboard=start_keyb())
     
 

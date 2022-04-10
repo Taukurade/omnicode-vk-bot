@@ -6,6 +6,7 @@ def start_keyb():
     key.row()
     key.add(Text('Мемы'), KeyboardButtonColor.SECONDARY)
     key.add(Text('Статистика'), KeyboardButtonColor.SECONDARY)
+    
     return key.get_json()
 
 def questions():
